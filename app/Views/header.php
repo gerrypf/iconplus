@@ -21,6 +21,8 @@
     <link href="<?= base_url('').'/Assets' ?>/css/tabler-payments.min.css" rel="stylesheet"/>
     <link href="<?= base_url('').'/Assets' ?>/css/tabler-vendors.min.css" rel="stylesheet"/>
     <link href="<?= base_url('').'/Assets' ?>/css/demo.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   </head>
   <body class="layout-fluid">
     <div class="wrapper">

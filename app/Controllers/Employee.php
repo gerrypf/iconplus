@@ -41,11 +41,15 @@ class Employee extends Controller
     {
         $model = new Employee_model;
         $getKaryawan = $model->getKaryawan($id)->getRow();
+
+        $session = session();
+        $uname['user_name'] = $session->get('user_name');
+
         if (isset($getKaryawan)) {
             $data['employee'] = $getKaryawan;
             $data['title']  = 'Niagahoster Tutorial';
  
-            echo view('header', $data);
+            echo view('header', $uname);
             echo view('edit_view', $data);
             echo view('footer', $data);
         } else {

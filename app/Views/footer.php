@@ -29,6 +29,12 @@
     <!-- DATATABLES SCRIPT -->
       <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+      <script>
+        $(document).ready(function () {
+            $('#tabel').DataTable(
+            );
+        });
+      </script>
     <!-- --- -->
 
     <!-- TABLER ASSET -->

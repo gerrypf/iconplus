@@ -10,7 +10,7 @@
  
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped datatable">
+                    <table id="tabel" class="table card-table table-vcenter text-nowrap datatable">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -53,7 +53,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data Karyawan</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -83,7 +83,7 @@
                                 <option value="Sudah">Sudah Vaksin</option>
                             </select>
                         </div>
- 
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
