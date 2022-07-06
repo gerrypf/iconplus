@@ -40,6 +40,7 @@ $routes->set404Override();
 // $routes->get('/test_view', 'Test_view::index');
 // $routes->get('/employee', 'Employee::index');
 // $routes->post('/employee/add', 'Employee::add');
+ $routes->get('/employee', 'Employee::index',['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------
