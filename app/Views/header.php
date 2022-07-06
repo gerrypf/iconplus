@@ -20,7 +20,7 @@
     <link href="<?= base_url('').'/Assets' ?>/css/tabler-vendors.min.css" rel="stylesheet"/>
     <link href="<?= base_url('').'/Assets' ?>/css/demo.min.css" rel="stylesheet"/>
   </head>
-  <body class="layout-fluid theme-light">
+  <body class="layout-fluid">
     <div class="wrapper">
       <header class="navbar navbar-expand-md navbar-light d-print-none">
         <div class="container-xl">
@@ -28,7 +28,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href=".">
+            <a href="./employee">
               <img src="<?= base_url('').'/Assets' ?>/static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
           </h1>
@@ -64,12 +64,12 @@
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" class="dropdown-item">Set status</a>
-                <a href="#" class="dropdown-item">Profile & account</a>
-                <a href="#" class="dropdown-item">Feedback</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">Settings</a>
-                <a href="#" class="dropdown-item">Logout</a>
+                <!-- <a href="#" class="dropdown-item">Set status</a> -->
+                <!-- <a href="#" class="dropdown-item">Profile & account</a> -->
+                <!-- <a href="#" class="dropdown-item">Feedback</a> -->
+                <!-- <div class="dropdown-divider"></div> -->
+                <!-- <a href="#" class="dropdown-item">Settings</a> -->
+                <a href="http://localhost:8080/login/logout" class="dropdown-item">Logout</a>
               </div>
             </div>
           </div>
