@@ -10,7 +10,6 @@ class Employee extends Controller
     public function index()
     {
         $session = session();
-        echo "Welcome back, ".$session->get('user_name');
         $model = new Employee_model;
         $data['title']     = 'Data Vaksin Karyawan';
         $data['getKaryawan'] = $model->getKaryawan();

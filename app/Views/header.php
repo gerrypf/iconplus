@@ -15,6 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="">Niagahoster Tutorial</a>
+            <a class="navbar-brand" href="">Iconplus</a>
+            <a class="navbar-brand" href="localhost:8080/login/logout">Logout</a>
         </div>
     </nav>
