@@ -27,11 +27,19 @@
     <div class="page page-center">
       <div class="container-tight py-4">
       <div class="text-center mb-4">
+<<<<<<< HEAD
           <a href="." style="font-family: Aclonica; font-size: 23px; color: #206bc4; text-decoration: none">
             <i class="ti ti-ghost"></i> B O O O ! !
           </a>
         </div>
         <form class="card card-md" action="/login/auth" method="post" autocomplete="off">
+=======
+          <a href="#" style="font-family: Aclonica; font-size: 23px; color: #206bc4; text-decoration: none">
+            <i class="ti ti-ghost"></i> B O O O ! !
+          </a>
+        </div>
+        <form class="card card-md" action="/login/auth" method="post" autocomplete="on">
+>>>>>>> 5faa3e04d7e842825c4daba77106eb8259930a6b
           <div class="card-body">
             <h2 class="card-title text-center mb-4">Login</h2>
             <div class="mb-3">
@@ -58,7 +66,11 @@
           
         </form>
         <div class="text-center text-muted mt-3">
+<<<<<<< HEAD
           Belum punya akun? <a href="./sign-up.html" tabindex="-1">Daftar</a>
+=======
+          Belum punya akun? <a href="http://localhost:8080/register" tabindex="-1">Daftar</a>
+>>>>>>> 5faa3e04d7e842825c4daba77106eb8259930a6b
         </div>
       </div>
     </div>
