@@ -24,13 +24,13 @@ class Employee extends Controller
     public function add()
     {
         $model = new Employee_model;
-        $data = array(
+        $data = [
             'nama_karyawan' => $this->request->getPost('nama_karyawan'),
             'usia'         => $this->request->getPost('usia'),
             'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
             'status_vaksin_2'  => $this->request->getPost('status_vaksin_2')
-        );
-        $model->insert($data);
+        ];
+        $model->save($data);
         $output = ['status' => 'Berhasil'];
         return $this->response->setJSON($output);
     }
@@ -76,16 +76,14 @@ class Employee extends Controller
             </script>';
     }
     
-    public function hapus($id)
+    public function hapus()
     {
         $model = new Employee_model();
-        $delete = $model->where('id', $id)->delete();
-        if($delete)
-        {
-           echo json_encode(array("status" => true));
-        }else{
-           echo json_encode(array("status" => false));
-        }
+        $id = $this->request->getGet("delete_id");
+        $model->delete($id);
+
+        $output = ['status' => 'Data berhasil dihapus'];
+        return $this->response->setJSON($output);
     }
  
 }

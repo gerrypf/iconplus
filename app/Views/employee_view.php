@@ -61,17 +61,17 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Karyawan</label>
-                        <input type="text" class="form-control nama_karyawan">
+                        <input type="text" class="form-control nama_karyawan" id="nama_karyawan">
                         <span id="error_nama" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="usia" class="col-form-label">Usia</label>
-                        <input type="text" class="form-control usia">
+                        <input type="text" class="form-control usia" id="usia">
                         <span id="error_usia" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="status_vaksin_1" class="col-form-label">Status Vaksin 1</label>
-                        <select class="form-control status_vaksin_1">
+                        <select class="form-control status_vaksin_1" id="status_vaksin_1">
                             <option value="">---Pilih Status Vaksin---</option>
                             <option value="Belum">Belum Vaksin</option>
                             <option value="Sudah">Sudah Vaksin</option>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="form-group">
                         <label for="status_vaksin_2" class="col-form-label">Status Vaksin 2</label>
-                        <select class="form-control status_vaksin_2">
+                        <select class="form-control status_vaksin_2" id="status_vaksin_2">
                             <option value="">---Pilih Status Vaksin---</option>
                             <option value="Belum">Belum Vaksin</option>
                             <option value="Sudah">Sudah Vaksin</option>
@@ -138,6 +138,8 @@
                     data : $("#btn-save").serialize(),
                     success : function(response) {
                         $('#exampleModal').modal('hide');
+                        $('#exampleModal').find('input').val('');
+                        display();
 
                         swal(response.status);
                     }
@@ -148,17 +150,21 @@
             $(document).on('click', '.btnDelete', function (e) {
                 e.preventDefault();
                 var employ_id = $(this).attr('data-id');
-                swal("Mau hapus data dengan id:", employ_id);
-                // $.ajax({
-                //     type : "POST",
-                //     url : "employee/add",
-                //     data : $("#btn-save").serialize(),
-                //     success : function(response) {
-                //         alert(response);
-                //     }
-                // });
-                // e.preventDefault();
+                // swal("Mau hapus data dengan id:", employ_id, "warning");
+                $.ajax({
+                    method : "get",
+                    url : "employee/hapus/",
+                    data:{delete_id:employ_id},
+                    success : function(response) {
+                        
+                        swal("Berhasil", response.status, "success");
+                        // $('#tabel').html('');
+                        $('#tabel').DataTable();
+                    }
+                });
+                e.preventDefault();
             });
+
             function display()
             {
                 $('#tabel').DataTable();
