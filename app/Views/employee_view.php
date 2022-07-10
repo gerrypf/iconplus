@@ -58,6 +58,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form id="addForm" name="addForm" class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Karyawan</label>
@@ -130,18 +131,30 @@
             display();
 
             $(document).on('click', '#btn-save', function (e) {
+                var nama_karyawan = $('#nama_karyawan').val();
+                var usia = $('#usia').val();
+                var status_vaksin_1 = $('#status_vaksin_1').val();
+                var status_vaksin_2 = $('#status_vaksin_2').val();
                 e.preventDefault();
                 // swal("Waasuuuppp");
                 $.ajax({
-                    type : "POST",
+                    method : "post",
                     url : "employee/add",
-                    data : $("#btn-save").serialize(),
+                    data : {
+                        nama_karyawan:nama_karyawan,
+                        usia:usia,
+                        status_vaksin_1:status_vaksin_1,
+                        status_vaksin_2:status_vaksin_2
+                    },
                     success : function(response) {
+                        $("#addForm")[0].reset();
+                        // $('#tabel').load(document.URL +  ' #tabel');
+
                         $('#exampleModal').modal('hide');
                         $('#exampleModal').find('input').val('');
                         display();
 
-                        swal(response.status);
+                        swal("Berhasil", response.status, "success");
                     }
                 });
                 e.preventDefault();
@@ -156,10 +169,11 @@
                     url : "employee/hapus/",
                     data:{delete_id:employ_id},
                     success : function(response) {
-                        
+                        display();
+                        // $('#tabel').load(document.URL +  ' #tabel');
                         swal("Berhasil", response.status, "success");
                         // $('#tabel').html('');
-                        $('#tabel').DataTable();
+                        // $('#tabel').DataTable();
                     }
                 });
                 e.preventDefault();

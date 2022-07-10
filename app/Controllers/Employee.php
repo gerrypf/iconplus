@@ -31,7 +31,7 @@ class Employee extends Controller
             'status_vaksin_2'  => $this->request->getPost('status_vaksin_2')
         ];
         $model->save($data);
-        $output = ['status' => 'Berhasil'];
+        $output = ['status' => 'Data berhasil ditambahkan'];
         return $this->response->setJSON($output);
     }
 
