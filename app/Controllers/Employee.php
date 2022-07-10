@@ -14,7 +14,7 @@ class Employee extends Controller
 
         $model = new Employee_model;
         $data['title']     = 'Data Vaksin Karyawan';
-        $data['getKaryawan'] = $model->getKaryawan();
+        $data['getKaryawan'] = $model->findAll();
  
         echo view('header', $uname);
         echo view('employee_view', $data);
@@ -30,11 +30,9 @@ class Employee extends Controller
             'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
             'status_vaksin_2'  => $this->request->getPost('status_vaksin_2')
         );
-        $model->saveKaryawan($data);
-        echo '<script>
-                alert("Selamat! Berhasil Menambah Data Vaksinasi Karyawan");
-                window.location="' . base_url('employee') . '"
-            </script>';
+        $model->insert($data);
+        $output = ['status' => 'Berhasil'];
+        return $this->response->setJSON($output);
     }
 
     public function edit($id)
@@ -80,20 +78,13 @@ class Employee extends Controller
     
     public function hapus($id)
     {
-        $model = new Employee_model;
-        $getKaryawan = $model->getKaryawan($id)->getRow();
-        if (isset($getKaryawan)) {
-            $model->hapusKaryawan($id);
-            echo '<script>
-                    alert("Selamat! Data berhasil terhapus.");
-                    window.location="' . base_url('employee') . '"
-                </script>';
-        } else {
- 
-            echo '<script>
-                    alert("Gagal Menghapus !, ID karyawan ' . $id . ' Tidak ditemukan");
-                    window.location="' . base_url('employee') . '"
-                </script>';
+        $model = new Employee_model();
+        $delete = $model->where('id', $id)->delete();
+        if($delete)
+        {
+           echo json_encode(array("status" => true));
+        }else{
+           echo json_encode(array("status" => false));
         }
     }
  

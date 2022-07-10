@@ -61,7 +61,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Karyawan</label>
-                        <input type="text" class="form-control nama_karyawan" placeholder="Masukkan Nama">
+                        <input type="text" class="form-control nama_karyawan">
                         <span id="error_nama" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -88,7 +88,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-save">Tambah</button>
+                    <button type="button" class="btn btn-primary" id="btn-save">Tambah</button>
                 </div>
             </form>
             </div>
@@ -129,59 +129,36 @@
 		
             display();
 
-            $(document).on('click','.btn-save',function(){
-                // swal("Hellooo dude");
-                // $('#exampleModal').modal('show');
-                
-                    var data = {
-                        'nama_karyawan'   : $('.nama_karyawan').val(),
-                        'usia'            : $('.usia').val(),
-                        'status_vaksin_1' : $('.status_vaksin_1').val(),
-                        'status_vaksin_2' : $('.status_vaksin_2').val()
+            $(document).on('click', '#btn-save', function (e) {
+                e.preventDefault();
+                // swal("Waasuuuppp");
+                $.ajax({
+                    type : "POST",
+                    url : "employee/add",
+                    data : $("#btn-save").serialize(),
+                    success : function(response) {
+                        $('#exampleModal').modal('hide');
+
+                        swal(response.status);
                     }
-                    $.ajax({
-                        url:'employee/add',
-                        method:'post',
-                        data:data,
-                        success:function(response){
-                            $('#exampleModal').modal('hide');
-                            swal(response.status);
-                            // alertify.success(response.status);
-                    
-                            // $('#exampleModal').modal('hide');
-                            // location.reload();
-                            // $('#tabel').html('');
-                            
-                            // display();
-                            
-                            // swal("Inserted");
-                        }
-                    });
-                // var nama_karyawan   = $('#nama_karyawan').val();
-                // var usia            = $('#usia').val();
-                // var status_vaksin_1 = $('#status_vaksin_1').val();
-                // var status_vaksin_2 = $('#status_vaksin_2').val();
-                
-                
-                
+                });
+                e.preventDefault();
             });
 
-            $(document).on('click', '.btnDelete', function () {
+            $(document).on('click', '.btnDelete', function (e) {
+                e.preventDefault();
                 var employ_id = $(this).attr('data-id');
-                swal(employ_id);
-                // $('#id_krywn_del').val();
-                // $('#hapusModal').modal('show');
-                // $.get('employee/delete/'+employ_id, function (data) {
-                //     $('#studentTable tbody #'+ employ_id).remove();
-                // })
+                swal("Mau hapus data dengan id:", employ_id);
+                // $.ajax({
+                //     type : "POST",
+                //     url : "employee/add",
+                //     data : $("#btn-save").serialize(),
+                //     success : function(response) {
+                //         alert(response);
+                //     }
+                // });
+                // e.preventDefault();
             });
-            // $('body').on('click', '.btnDelete', function () {
-            //     // var id = $(this).attr('data-id');
-            //     // $.get('employee/hapus/'+id, function (data) {
-            //     //     $('#tabel tbody #'+ id).remove();
-            //     // })
-            //     // swal("Hello world!");
-            // }); 
             function display()
             {
                 $('#tabel').DataTable();
