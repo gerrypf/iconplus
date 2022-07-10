@@ -1,6 +1,7 @@
+<body>
 <div class="container pt-5">
         <div class="text-right">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap" style="margin-bottom:10px;">Tambah Data</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</button>
         </div>
  
         <div class="card">
@@ -10,11 +11,7 @@
  
             <div class="card-body">
                 <div class="table-responsive">
-<<<<<<< HEAD
-                    <table class="table table-bordered table-striped">
-=======
                     <table id="tabel" class="table card-table table-vcenter text-nowrap datatable">
->>>>>>> 5faa3e04d7e842825c4daba77106eb8259930a6b
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -25,8 +22,8 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php $no = 1;
+                        <tbody id="tableData">	
+                        <?php $no = 1;
                             foreach ($getKaryawan as $krywn) { ?>
                                 <tr>
                                     <td><?= $no; ?></td>
@@ -36,9 +33,9 @@
                                     <td><?= $krywn['status_vaksin_2']; ?></td>
                                     <td>
                                         <a href="<?= base_url('employee/edit/' . $krywn['id']); ?>" class="btn btn-success" data-target="#editModal">
-                                            Edit</a>
-                                        <a href="<?= base_url('employee/hapus/' . $krywn['id']); ?>" onclick="javascript:return confirm('Apakah Anda yakin ingin menghapus data karyawan?')" class="btn btn-danger">
-                                            Hapus</a>
+                                            <i class="ti ti-edit"></i></a>
+                                        <a data-id="<?php echo $krywn['id']; ?>" class="btn btn-danger btnDelete">
+                                            <i class="ti ti-trash"></i></a>
                                     </td>
                                 </tr>
                             <?php $no++;
@@ -52,55 +49,144 @@
     </div>
  
     <!--   Modal Tambah Data-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal modal-blur fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Data Karyawan</h5>
-<<<<<<< HEAD
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-=======
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
->>>>>>> 5faa3e04d7e842825c4daba77106eb8259930a6b
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="<?= base_url('employee/add'); ?>">
-                        <div class="form-group">
-                            <label for="nama_karyawan" class="col-form-label">Nama Karyawan</label>
-                            <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
-                        </div>
-                        <div class="form-group">
-                            <label for="usia" class="col-form-label">Usia</label>
-                            <input type="text" class="form-control" id="usia" name="usia">
-                        </div>
-                        <div class="form-group">
-                            <label for="status_vaksin_1" class="col-form-label">Status Vaksin 1</label>
-                            <select class="form-control" name="status_vaksin_1">
-                                <option value="">---Pilih Status Vaksin---</option>
-                                <option value="Belum">Belum Vaksin</option>
-                                <option value="Sudah">Sudah Vaksin</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="status_vaksin_2" class="col-form-label">Status Vaksin 2</label>
-                            <select class="form-control" name="status_vaksin_2">
-                                <option value="">---Pilih Status Vaksin---</option>
-                                <option value="Belum">Belum Vaksin</option>
-                                <option value="Sudah">Sudah Vaksin</option>
-                            </select>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label>Nama Karyawan</label>
+                        <input type="text" class="form-control nama_karyawan" placeholder="Masukkan Nama">
+                        <span id="error_nama" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="usia" class="col-form-label">Usia</label>
+                        <input type="text" class="form-control usia">
+                        <span id="error_usia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="status_vaksin_1" class="col-form-label">Status Vaksin 1</label>
+                        <select class="form-control status_vaksin_1">
+                            <option value="">---Pilih Status Vaksin---</option>
+                            <option value="Belum">Belum Vaksin</option>
+                            <option value="Sudah">Sudah Vaksin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status_vaksin_2" class="col-form-label">Status Vaksin 2</label>
+                        <select class="form-control status_vaksin_2">
+                            <option value="">---Pilih Status Vaksin---</option>
+                            <option value="Belum">Belum Vaksin</option>
+                            <option value="Sudah">Sudah Vaksin</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-save">Tambah</button>
                 </div>
-                </form>
+            </form>
             </div>
         </div>
     </div>
-    </body>
 
-    
+    <!-- Modal Hapus Data -->
+    <div class="modal modal-blur fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Karyawan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="id_krywn_del">
+                    <h4>Yakin ingin menghapus data ini?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger delete-btn-employ">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+    <!-- DATATABLES SCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function(){
+		
+            display();
+
+            $(document).on('click','.btn-save',function(){
+                // swal("Hellooo dude");
+                // $('#exampleModal').modal('show');
+                
+                    var data = {
+                        'nama_karyawan'   : $('.nama_karyawan').val(),
+                        'usia'            : $('.usia').val(),
+                        'status_vaksin_1' : $('.status_vaksin_1').val(),
+                        'status_vaksin_2' : $('.status_vaksin_2').val()
+                    }
+                    $.ajax({
+                        url:'employee/add',
+                        method:'post',
+                        data:data,
+                        success:function(response){
+                            $('#exampleModal').modal('hide');
+                            swal(response.status);
+                            // alertify.success(response.status);
+                    
+                            // $('#exampleModal').modal('hide');
+                            // location.reload();
+                            // $('#tabel').html('');
+                            
+                            // display();
+                            
+                            // swal("Inserted");
+                        }
+                    });
+                // var nama_karyawan   = $('#nama_karyawan').val();
+                // var usia            = $('#usia').val();
+                // var status_vaksin_1 = $('#status_vaksin_1').val();
+                // var status_vaksin_2 = $('#status_vaksin_2').val();
+                
+                
+                
+            });
+
+            $(document).on('click', '.btnDelete', function () {
+                var employ_id = $(this).attr('data-id');
+                swal(employ_id);
+                // $('#id_krywn_del').val();
+                // $('#hapusModal').modal('show');
+                // $.get('employee/delete/'+employ_id, function (data) {
+                //     $('#studentTable tbody #'+ employ_id).remove();
+                // })
+            });
+            // $('body').on('click', '.btnDelete', function () {
+            //     // var id = $(this).attr('data-id');
+            //     // $.get('employee/hapus/'+id, function (data) {
+            //     //     $('#tabel tbody #'+ id).remove();
+            //     // })
+            //     // swal("Hello world!");
+            // }); 
+            function display()
+            {
+                $('#tabel').DataTable();
+            }
+        });
+    </script>
+        <!-- --- -->
+        
