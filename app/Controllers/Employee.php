@@ -12,14 +12,13 @@ class Employee extends Controller
         $session = session();
         $uname['user_name'] = $session->get('user_name');
 
-        
         echo view('header', $uname);
         echo view('employee_view');
         echo view('footer');
     }
     public function fetch()
     {
-        $model = new Employee_model;
+        $model = new Employee_model();
         $data['title']     = 'Data Vaksin Karyawan';
         $data['getKaryawan'] = $model->findAll();
         return $this->response->setJSON($data);
@@ -27,7 +26,7 @@ class Employee extends Controller
  
     public function add()
     {
-        $model = new Employee_model;
+        $model = new Employee_model();
         $data = [
             'nama_karyawan' => $this->request->getPost('nama_karyawan'),
             'usia'         => $this->request->getPost('usia'),
@@ -39,51 +38,39 @@ class Employee extends Controller
             $output = ['status' => 'Data berhasil ditambahkan'];
             return $this->response->setJSON($output);
         } else {
-            $output = ['status' => 'Gagal'];
+            $output = ['status' => 'Data gagal ditambah'];
             return $this->response->setJSON($output);
         }
         
     }
 
-    public function edit($id)
+    public function edit()
     {
-        $model = new Employee_model;
-        $getKaryawan = $model->getKaryawan($id)->getRow();
-
-        $session = session();
-        $uname['user_name'] = $session->get('user_name');
-
-        if (isset($getKaryawan)) {
-            $data['employee'] = $getKaryawan;
-            $data['title']  = 'Niagahoster Tutorial';
- 
-            echo view('header', $uname);
-            echo view('edit_view', $data);
-            echo view('footer', $data);
-        } else {
- 
-            echo '<script>
-                    alert("ID karyawan ' . $id . ' Tidak ditemukan");
-                    window.location="' . base_url('employee') . '"
-                </script>';
-        }
+        $model = new Employee_model();
+        $id = $this->request->getPost("edit_id");
+        $data['employee'] = $model->find($id);
+        return $this->response->setJSON($data);
     }
  
     public function update()
     {
         $model = new Employee_model;
-        $id = $this->request->getPost('id');
-        $data = array(
+        $id = $this->request->getGet('id');
+        $data = [
             'nama_karyawan' => $this->request->getPost('nama_karyawan'),
             'usia'         => $this->request->getPost('usia'),
             'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
-            'status_vaksin_2'  => $this->request->getPost('status_vaksin_2')
-        );
-        $model->editKaryawan($data, $id);
-        echo '<script>
-                alert("Selamat! Anda berhasil melakukan update data.");
-                window.location="' . base_url('employee') . '"
-            </script>';
+            'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
+        ];
+        $update = $model->update($id, $data);
+
+        if($update) {
+            $output = ['status' => 'Data berhasil diupdate'];
+            return $this->response->setJSON($output);
+        } else {
+            $output = ['status' => 'Data gagal diupdate'];
+            return $this->response->setJSON($output);
+        }
     }
     
     public function hapus()

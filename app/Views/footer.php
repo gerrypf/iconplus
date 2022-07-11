@@ -9,8 +9,7 @@
               <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                   <li class="list-inline-item">
-                    Copyright &copy; 2022
-                    <a href="." class="link-secondary">-</a>
+                    Copyright &copy; 2022 -
                     All rights reserved.
                   </li>
                   <li class="list-inline-item">
