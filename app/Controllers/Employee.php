@@ -55,7 +55,7 @@ class Employee extends Controller
     public function update()
     {
         $model = new Employee_model;
-        $id = $this->request->getGet('id');
+        $id = $this->request->getPost("edit_id");
         $data = [
             'nama_karyawan' => $this->request->getPost('nama_karyawan'),
             'usia'         => $this->request->getPost('usia'),

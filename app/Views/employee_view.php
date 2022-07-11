@@ -90,9 +90,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="editForm" name="editForm" class="form-horizontal">
                 <div class="modal-body">
-                    <input type="hidden" id="id_edit">
+                    <input type="hidden" id="edit_id">
                     <div class="form-group">
                         <label>Nama Karyawan</label>
                         <input type="text" class="form-control nama_karyawan" id="nama_karyawan_edit">
@@ -124,7 +123,6 @@
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary btn-update">Update</button>
                 </div>
-            </form>
             </div>
         </div>
     </div>
@@ -215,9 +213,10 @@
                 $.ajax({
                     method : "post",
                     url : "employee/edit",
-                    data:{edit_id:edit_id},
+                    data:{'edit_id':edit_id},
                     success : function(response) {
                         $.each(response, function(key, value) {
+                            $('#edit_id').val(value['id']);
                             $('#nama_karyawan_edit').val(value['nama_karyawan']);
                             $('#usia_edit').val(value['usia']);
                             $('#status_vaksin_1_edit').val(value['status_vaksin_1']);
@@ -231,8 +230,9 @@
 
             $(document).on('click', '.btn-update', function (e) {
                 e.preventDefault();
-                var id = $(this).attr('data-id');
-                var data = {                    
+                // var id = $(this).attr('data-id');
+                var data = {         
+                    'edit_id': $('#edit_id').val(),           
                     'nama_karyawan': $('#nama_karyawan_edit').val(),
                     'usia': $('#usia_edit').val(),
                     'status_vaksin_1': $('#status_vaksin_1_edit').val(),
@@ -241,7 +241,7 @@
                 $.ajax({
                     method : "post",
                     url : "employee/update",
-                    data: {id:id}, data,
+                    data: data,
                     success : function(response) {
                         if(response.status == "Data berhasil diupdate"){
                             $('#editModal').modal('hide');                    
