@@ -23,23 +23,7 @@
                             </tr>
                         </thead>
                         <tbody id="tableData">	
-                        <?php $no = 1;
-                            foreach ($getKaryawan as $krywn) { ?>
-                                <tr>
-                                    <td><?= $no; ?></td>
-                                    <td><?= $krywn['nama_karyawan']; ?></td>
-                                    <td><?= $krywn['usia']; ?></td>
-                                    <td><?= $krywn['status_vaksin_1']; ?></td>
-                                    <td><?= $krywn['status_vaksin_2']; ?></td>
-                                    <td>
-                                        <a href="<?= base_url('employee/edit/' . $krywn['id']); ?>" class="btn btn-success" data-target="#editModal">
-                                            <i class="ti ti-edit"></i></a>
-                                        <a data-id="<?php echo $krywn['id']; ?>" class="btn btn-danger btnDelete">
-                                            <i class="ti ti-trash"></i></a>
-                                    </td>
-                                </tr>
-                            <?php $no++;
-                            } ?>
+                        
                         </tbody>
  
                     </table>
@@ -131,8 +115,8 @@
             display();
 
             $(document).on('click', '#btn-save', function (e) {
-                var nama_karyawan = $('#nama_karyawan').val();
-                var usia = $('#usia').val();
+                var nama_karyawan   = $('#nama_karyawan').val();
+                var usia            = $('#usia').val();
                 var status_vaksin_1 = $('#status_vaksin_1').val();
                 var status_vaksin_2 = $('#status_vaksin_2').val();
                 e.preventDefault();
@@ -147,14 +131,28 @@
                         status_vaksin_2:status_vaksin_2
                     },
                     success : function(response) {
-                        $("#addForm")[0].reset();
+                        if(response.status == "Data berhasil ditambahkan"){
+                            $('#exampleModal').modal('hide');
+                            // $('#tabel').DataTable().ajax.reload(null, false);\
+                            // ajax.reload();
+                            // $('#tabel').DataTable().ajax.reload();
+                            $('#tableData').html("");
+                            display();
+                           
+                            swal(response.status);
+                        } else {
+                            swal(response.status);
+                        }
+                        
+                        
+                        // $("#addForm")[0].reset();
                         // $('#tabel').load(document.URL +  ' #tabel');
 
-                        $('#exampleModal').modal('hide');
-                        $('#exampleModal').find('input').val('');
-                        display();
-
-                        swal("Berhasil", response.status, "success");
+                        // $('#exampleModal').modal('hide');
+                        // $('#exampleModal').find('input').val('');
+                        // // display();
+                        // $('#tabel').data.reload();
+                        // swal("Berhasil", response.status, "success");
                     }
                 });
                 e.preventDefault();
@@ -169,7 +167,7 @@
                     url : "employee/hapus/",
                     data:{delete_id:employ_id},
                     success : function(response) {
-                        display();
+                        $('#tableData').html("");
                         // $('#tabel').load(document.URL +  ' #tabel');
                         swal("Berhasil", response.status, "success");
                         // $('#tabel').html('');
@@ -181,8 +179,30 @@
 
             function display()
             {
-                $('#tabel').DataTable();
+                $.ajax({
+                    mathod: "get",
+                    url: 'employee/fetch',
+                    success: function(response) {
+                        $.each(response.getKaryawan, function(key, value){
+                            // console.log(value['nama']);
+                            $('#tableData').append('<tr>\
+                                <td class="krywn_id">'+value['id']+'</td>\
+                                <td>'+value['nama_karyawan']+'</td>\
+                                <td>'+value['usia']+'</td>\
+                                <td>'+value['status_vaksin_1']+'</td>\
+                                <td>'+value['status_vaksin_2']+'</td>\
+                                <td>\
+                                    <a href="" class="btn btn-success btn-edit"><i class="ti ti-edit"></i></a>\
+                                    <a href="" class="btn btn-danger btn-delete"><i class="ti ti-trash"></i></a>\
+                                </td>\
+                            </tr>');
+                        });
+
+                    }
+                });
             }
+
+            
         });
     </script>
         <!-- --- -->

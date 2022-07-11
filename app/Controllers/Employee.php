@@ -12,13 +12,17 @@ class Employee extends Controller
         $session = session();
         $uname['user_name'] = $session->get('user_name');
 
+        
+        echo view('header', $uname);
+        echo view('employee_view');
+        echo view('footer');
+    }
+    public function fetch()
+    {
         $model = new Employee_model;
         $data['title']     = 'Data Vaksin Karyawan';
         $data['getKaryawan'] = $model->findAll();
- 
-        echo view('header', $uname);
-        echo view('employee_view', $data);
-        echo view('footer', $data);
+        return $this->response->setJSON($data);
     }
  
     public function add()
@@ -30,9 +34,15 @@ class Employee extends Controller
             'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
             'status_vaksin_2'  => $this->request->getPost('status_vaksin_2')
         ];
-        $model->save($data);
-        $output = ['status' => 'Data berhasil ditambahkan'];
-        return $this->response->setJSON($output);
+        $add = $model->save($data);
+        if($add) {
+            $output = ['status' => 'Data berhasil ditambahkan'];
+            return $this->response->setJSON($output);
+        } else {
+            $output = ['status' => 'Gagal'];
+            return $this->response->setJSON($output);
+        }
+        
     }
 
     public function edit($id)
